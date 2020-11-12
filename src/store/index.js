@@ -28,6 +28,7 @@ export default new Vuex.Store({
           el.score += 10
         }
       })
+    }
   },
   actions: {
   },
