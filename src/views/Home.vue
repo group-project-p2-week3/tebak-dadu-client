@@ -2,6 +2,8 @@
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
+    {{usersJoined}}
+    {{username}}
   </div>
 </template>
 
@@ -13,6 +15,18 @@ export default {
   name: 'Home',
   components: {
     HelloWorld
+  },
+  data () {
+    return {
+    }
+  },
+  computed: {
+    usersJoined () {
+      return this.$store.state.usersJoined
+    },
+    username () {
+      return this.$store.state.username
+    }
   }
 }
 </script>
