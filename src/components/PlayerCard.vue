@@ -8,7 +8,7 @@
           <form @submit.prevent="insertAnswers">
             <div class="form-group">
               <label for="answer">try your luck</label>
-              <input v-model="answer" type="text" id="answer" class="form-control">
+              <input v-model="answer" type="number" id="answer" class="form-control" min="1" max="6"/>
             </div>
           </form>
         </div>
@@ -33,6 +33,7 @@ export default {
         answer: this.answer
       }
       this.$socket.emit('insertAnswers', payload)
+      this.answer = ''
     }
   },
   props: ['player']
