@@ -5,27 +5,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    players: [
-      {
-        username: 'unique',
-        score: 0
-      },
-      {
-        username: 'player 2',
-        score: 0
-      },
-      {
-        username: 'player 3',
-        score: 0
-      },
-      {
-        username: 'player 4',
-        score: 0
-      }
-    ],
-    answers: []
+    answers: [],
+    usersJoined: [],
+    username: ''
   },
   mutations: {
+    SOCKET_userLogin (state, usersJoined) {
+      state.username = localStorage.getItem('username')
+      state.usersJoined = usersJoined
+    },
     SOCKET_insetAnswers (state, answers) {
       if (state.answers.length === 4) {
         state.answers = []
@@ -40,7 +28,6 @@ export default new Vuex.Store({
           el.score += 10
         }
       })
-    }
   },
   actions: {
   },

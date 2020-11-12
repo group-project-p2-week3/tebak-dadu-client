@@ -60,6 +60,12 @@ export default {
     }
   },
   computed: {
+    usersJoined () {
+      return this.$store.state.usersJoined
+    },
+    username () {
+      return this.$store.state.username
+    },
     players () {
       return this.$store.state.players
     },
