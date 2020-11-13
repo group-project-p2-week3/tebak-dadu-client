@@ -17,7 +17,7 @@ export default new Vuex.Store({
       state.username = localStorage.getItem('username')
       state.usersJoined = usersJoined
     },
-    SOCKET_insetAnswers (state, answers) {
+    SOCKET_insertAnswers (state, answers) {
       if (state.answers.length === 4) {
         state.answers = []
       }
@@ -33,8 +33,8 @@ export default new Vuex.Store({
       state.theWinnerIs = data
       state.hiddenForm = false
     },
-    hideForm (state) {
-      state.hiddenForm = true
+    hideForm (state, payload) {
+      state.hiddenForm = payload
     }
   },
   actions: {
