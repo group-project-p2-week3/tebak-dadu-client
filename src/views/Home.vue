@@ -1,11 +1,11 @@
 <template>
   <div class="home container">
     <button @click="logout" class="btn btn-outline-danger">Logout</button>
-    <div class="container-fluid bg-light shadow" style="height:40vh">
+    <div class="container bg-light shadow" style="height:50vh">
       <div class="row">
         <div class="col-6 text-center" style="margin-top: 2em">
           <h3 v-show="!img" class="mt-5">Submit your answers first</h3>
-          <img v-show="img" :src="img" alt="#" height="200px"> <br>
+          <img v-show="img" :src="img" alt="#" height="200px"> <br> <br>
           <button @click="getDice" class="btn btn-primary">Shake</button>
         </div>
         <div class="col-6" style="margin-top: 4em">
@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     getDice () {
-      if (this.answers.length === 4) {
+      if (this.answers.length === this.usersJoined.length) {
         const number = Math.ceil(Math.random() * 6)
 
         this.dice = number
@@ -59,6 +59,7 @@ export default {
     checkAnswer () {
       const correct = this.answers.filter(el => +el.answer === this.dice)
       this.$socket.emit('addScore', correct)
+      this.$store.commit('checkScore')
     },
     logout () {
       const username = localStorage.getItem('username')
@@ -82,9 +83,6 @@ export default {
   },
   components: {
     PlayerCard
-  },
-  created () {
-    
   }
 }
 

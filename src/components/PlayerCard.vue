@@ -1,13 +1,13 @@
 <template>
   <div class="col-3">
-    <div class="card">
+    <div class="card rounded shadow card-bordered bg-dark text-light">
       <div class="card-body">
-        <div class="card-title">{{player.username}}</div>
+        <div class="card-title"><strong>{{player.username}}</strong></div>
         <div class="card-text">
           <p>Score: {{player.score}}</p> <br />
           <form @submit.prevent="insertAnswers" :class="hideForm">
             <div class="form-group">
-              <label for="answer">try your luck</label>
+              <label for="answer">TRY YOUR LUCK</label>
               <input v-model="answer" type="number" id="answer" class="form-control" min="1" max="6" required/>
             </div>
           </form>

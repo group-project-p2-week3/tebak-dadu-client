@@ -26,6 +26,14 @@ export default new Vuex.Store({
     },
     SOCKET_changeDice (state, data) {
       state.img = data
+    },
+    checkScore (state) {
+      console.log('im here')
+      state.usersJoined.forEach(el => {
+        if (el.score === 50) {
+          return el.username
+        }
+      })
     }
   },
   actions: {
