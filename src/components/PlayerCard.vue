@@ -1,5 +1,5 @@
 <template>
-  <div class="col-3">
+  <div class="card-login col-3">
     <div class="card rounded shadow card-bordered bg-dark text-light">
       <div class="card-body">
         <div class="card-title"><strong>{{player.username}}</strong></div>
