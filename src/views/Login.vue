@@ -7,7 +7,7 @@
             <h5 class="card-title text-center">LET'S PLAY</h5>
             <form @submit.prevent="login()" class="form-login">
               <div class="form-group">
-                <input v-model="username" type="text" id="username" class="form-control rounded-pill" placeholder="Input Your Username" required autofocus autocomplete="off">
+                <input v-model="dataUser.username" type="text" id="username" class="form-control rounded-pill" placeholder="Input Your Username" required autofocus autocomplete="off">
               </div>
               <hr class="bg-light">
               <button class="btn btn-lg btn-primary btn-block mt-4 p-2 rounded-pill" type="submit">SUBMIT</button>
@@ -25,13 +25,16 @@ export default {
   name: 'Login',
   data () {
     return {
-      username: ''
+      dataUser: {
+        username: '',
+        score: 0
+      }
     }
   },
   methods: {
     login () {
-      localStorage.setItem('username', this.username)
-      this.$socket.emit('userLogin', this.username)
+      localStorage.setItem('username', this.dataUser.username)
+      this.$socket.emit('userLogin', this.dataUser)
       this.$router.push({ path: '/' })
     }
   }

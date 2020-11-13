@@ -3,8 +3,8 @@
     <div class="container bg-light shadow" style="height:50vh">
       <div class="row">
         <div class="col-6 text-center" style="margin-top: 2em">
-          <img :src="img" alt="#" height="200px">
           <button @click="getDice" class="btn btn-primary">Shake</button>
+          <p>{{ getDiceNumber }}</p>
         </div>
         <div class="col-6" style="margin-top: 4em">
           <ul v-for="(answer, i) in answers" :key="i">
@@ -16,12 +16,17 @@
       </div>
     </div>
     <br>
-    <div class="row">
-      <PlayerCard
-        v-for="(player, i) in players"
-        :key="i"
-        :player="player"
-      />
+
+    {{ answers }} <br>
+    {{ usersJoined }}
+    <div class="container">
+      <div class="row">
+        <PlayerCard
+          v-for="(usersJoin, i) in usersJoined"
+          :key="i"
+          :usersJoin="usersJoin"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -46,17 +51,12 @@ export default {
   },
   methods: {
     getDice () {
-      if (this.answers.length === 4) {
-        const number = Math.ceil(Math.random() * 6)
-
-        this.img = this.imglist[number]
-        this.dice = number
-        this.checkAnswer()
-      }
+      const number = Math.ceil(Math.random() * 6)
+      this.$socket.emit('getDiceNumber', number)
+      this.checkAnswer()
     },
     checkAnswer () {
-      const correct = this.answers.filter(el => +el.answer === this.dice)
-      this.$store.commit('addScore', correct)
+      console.log(this.answers)
     }
   },
   computed: {
@@ -71,6 +71,9 @@ export default {
     },
     answers () {
       return this.$store.state.answers
+    },
+    getDiceNumber () {
+      return this.$store.state.getDice
     }
   },
   components: {

@@ -7,9 +7,14 @@ export default new Vuex.Store({
   state: {
     answers: [],
     usersJoined: [],
-    username: ''
+    username: '',
+    getDice: 0
   },
   mutations: {
+    SOCKET_getDice (state, number) {
+      console.log(number, 'dari client')
+      state.getDice = number
+    },
     SOCKET_userLogin (state, usersJoined) {
       state.username = localStorage.getItem('username')
       state.usersJoined = usersJoined

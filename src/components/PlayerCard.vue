@@ -2,9 +2,9 @@
   <div class="col-3">
     <div class="card">
       <div class="card-body">
-        <div class="card-title">{{player.username}}</div>
+        <div class="card-title">{{ usersJoin.username }}</div>
         <div class="card-text">
-          <p>Score: {{player.score}}</p> <br />
+          <p>Score: {{ usersJoin.score }}</p> <br />
           <form @submit.prevent="insertAnswers">
             <div class="form-group">
               <label for="answer">try your luck</label>
@@ -36,7 +36,7 @@ export default {
       this.answer = ''
     }
   },
-  props: ['player']
+  props: ['usersJoin']
 }
 
 </script>
