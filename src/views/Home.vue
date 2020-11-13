@@ -59,11 +59,28 @@ export default {
     checkAnswer () {
       const correct = this.answers.filter(el => +el.answer === this.dice)
       this.$socket.emit('addScore', correct)
+      this.theWinnersss()
     },
     logout () {
       const username = localStorage.getItem('username')
       this.$socket.emit('logout', username)
       localStorage.clear()
+    },
+    theWinnersss () {
+      if (this.$store.state.theWinnerIs) {
+        console.log(this.$store.state.theWinnerIs)
+        if (this.$store.state.theWinnerIs === localStorage.username) {
+          Swal.fire({
+            icon: 'success',
+            title: 'You are the champs!!!'
+          })
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Such a loser!! :((('
+          })
+        }
+      }
     }
   },
   computed: {
@@ -78,13 +95,15 @@ export default {
     },
     img () {
       return this.$store.state.img
+    },
+    theWinners () {
+      return this.$store.state.theWinnerIs
     }
   },
   components: {
     PlayerCard
   },
   created () {
-    
   }
 }
 
