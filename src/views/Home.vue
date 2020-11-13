@@ -1,9 +1,11 @@
 <template>
-  <div class="home">
-    <div class="container bg-light shadow" style="height:50vh">
+  <div class="home container">
+    <button @click="logout" class="btn btn-outline-danger">Logout</button>
+    <div class="container-fluid bg-light shadow" style="height:40vh">
       <div class="row">
         <div class="col-6 text-center" style="margin-top: 2em">
-          <img :src="img" alt="#" height="200px">
+          <h3 v-show="!img" class="mt-5">Submit your answers first</h3>
+          <img v-show="img" :src="img" alt="#" height="200px"> <br>
           <button @click="getDice" class="btn btn-primary">Shake</button>
         </div>
         <div class="col-6" style="margin-top: 4em">
@@ -18,7 +20,7 @@
     <br>
     <div class="row">
       <PlayerCard
-        v-for="(player, i) in players"
+        v-for="(player, i) in usersJoined"
         :key="i"
         :player="player"
       />
@@ -28,19 +30,13 @@
 
 <script>
 // @ is an alias to /src
+import Swal from 'sweetalert2'
 import PlayerCard from '../components/PlayerCard'
 
 export default {
   name: 'Home',
   data () {
     return {
-      imglist: [
-        '',
-        'https://i.imgur.com/MFF46Ba.png',
-        'https://i.imgur.com/5YvvV3i.png',
-        'https://i.imgur.com/wMBE60f.png'
-      ],
-      img: '',
       dice: 0
     }
   },
@@ -49,14 +45,25 @@ export default {
       if (this.answers.length === 4) {
         const number = Math.ceil(Math.random() * 6)
 
-        this.img = this.imglist[number]
         this.dice = number
+        this.$socket.emit('changeDice', number)
         this.checkAnswer()
+      } else {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Wait a minute',
+          text: 'All players must submit their answer first'
+        })
       }
     },
     checkAnswer () {
       const correct = this.answers.filter(el => +el.answer === this.dice)
-      this.$store.commit('addScore', correct)
+      this.$socket.emit('addScore', correct)
+    },
+    logout () {
+      const username = localStorage.getItem('username')
+      this.$socket.emit('logout', username)
+      localStorage.clear()
     }
   },
   computed: {
@@ -66,15 +73,18 @@ export default {
     username () {
       return this.$store.state.username
     },
-    players () {
-      return this.$store.state.players
-    },
     answers () {
       return this.$store.state.answers
+    },
+    img () {
+      return this.$store.state.img
     }
   },
   components: {
     PlayerCard
+  },
+  created () {
+    
   }
 }
 
