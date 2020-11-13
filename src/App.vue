@@ -6,7 +6,14 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  created () {
+    if (!localStorage.username) {
+      this.$router.push({ name: 'Login' })
+    } else {
+      this.$router.push({ name: 'Home' })
+    }
+  }
 }
 </script>
 

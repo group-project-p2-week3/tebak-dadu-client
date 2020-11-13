@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     getDice () {
-      if (this.answers.length === 4) {
+      if (this.answers.length === 2) {
         const number = Math.ceil(Math.random() * 6)
 
         this.dice = number
@@ -52,33 +52,42 @@ export default {
         Swal.fire({
           icon: 'warning',
           title: 'Wait a minute',
-          text: 'All players must submit their answer first'
+          text: 'Min. Players 4 and must be submit theirs answer first!'
         })
       }
     },
     checkAnswer () {
       const correct = this.answers.filter(el => +el.answer === this.dice)
       this.$socket.emit('addScore', correct)
-      this.theWinnersss()
     },
     logout () {
       const username = localStorage.getItem('username')
       this.$socket.emit('logout', username)
       localStorage.clear()
-    },
-    theWinnersss () {
-      if (this.$store.state.theWinnerIs) {
-        console.log(this.$store.state.theWinnerIs)
-        if (this.$store.state.theWinnerIs === localStorage.username) {
+    }
+  },
+  watch: {
+    theWinners () {
+      console.log(this.theWinners)
+      if (this.theWinners.length > 0) {
+        if (this.theWinners.includes(localStorage.username)) {
           Swal.fire({
             icon: 'success',
             title: 'You are the champs!!!'
           })
+            .then((res) => {
+              localStorage.clear()
+              this.$router.push({ name: 'Login' })
+            })
         } else {
           Swal.fire({
             icon: 'error',
             title: 'Such a loser!! :((('
           })
+            .then((res) => {
+              localStorage.clear()
+              this.$router.push({ name: 'Login' })
+            })
         }
       }
     }

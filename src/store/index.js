@@ -9,7 +9,8 @@ export default new Vuex.Store({
     usersJoined: [],
     username: '',
     img: '',
-    theWinnerIs: ''
+    theWinnerIs: [],
+    hiddenForm: false
   },
   mutations: {
     SOCKET_userLogin (state, usersJoined) {
@@ -30,6 +31,10 @@ export default new Vuex.Store({
     },
     SOCKET_getWinners (state, data) {
       state.theWinnerIs = data
+      state.hiddenForm = false
+    },
+    hideForm (state) {
+      state.hiddenForm = true
     }
   },
   actions: {
