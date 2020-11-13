@@ -7,7 +7,8 @@ export default new Vuex.Store({
   state: {
     answers: [],
     usersJoined: [],
-    username: ''
+    username: '',
+    img: ''
   },
   mutations: {
     SOCKET_userLogin (state, usersJoined) {
@@ -20,17 +21,16 @@ export default new Vuex.Store({
       }
       state.answers = answers
     },
-    addScore (state, payload) {
-      const winner = payload.map(el => el.username)
-      console.log(winner)
-      state.players.forEach(el => {
-        if (winner.includes(el.username)) {
-          el.score += 10
-        }
-      })
+    SOCKET_updateScore (state, data) {
+      state.usersJoined = data
+    },
+    SOCKET_changeDice (state, data) {
+      state.img = data
+    }
   },
   actions: {
   },
   modules: {
   }
+
 })
