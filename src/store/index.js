@@ -8,7 +8,8 @@ export default new Vuex.Store({
     answers: [],
     usersJoined: [],
     username: '',
-    img: ''
+    img: '',
+    theWinnerIs: ''
   },
   mutations: {
     SOCKET_userLogin (state, usersJoined) {
@@ -27,13 +28,8 @@ export default new Vuex.Store({
     SOCKET_changeDice (state, data) {
       state.img = data
     },
-    checkScore (state) {
-      console.log('im here')
-      state.usersJoined.forEach(el => {
-        if (el.score === 50) {
-          return el.username
-        }
-      })
+    SOCKET_getWinners (state, data) {
+      state.theWinnerIs = data
     }
   },
   actions: {
