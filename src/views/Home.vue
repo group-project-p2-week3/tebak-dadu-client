@@ -5,7 +5,7 @@
         <div class="col-6 text-center" style="margin-top: 2em">
           <h3 v-show="!img" class="mt-5">Submit your answers first</h3>
           <img v-show="img" :src="img" alt="#" height="200px"> <br> <br>
-          <button @click="getDice" class="btn btn-primary">Shake</button>
+          <button @click="getDice" class="btn btn-primary"><i class="fas fa-dice"></i> Shake <i class="fas fa-dice"></i></button>
         </div>
         <div class="col-6" style="margin-top: 4em">
           <ul v-for="(answer, i) in answers" :key="i">
