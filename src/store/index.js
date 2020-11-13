@@ -9,14 +9,15 @@ export default new Vuex.Store({
     usersJoined: [],
     username: '',
     img: '',
-    theWinnerIs: ''
+    theWinnerIs: [],
+    hiddenForm: false
   },
   mutations: {
     SOCKET_userLogin (state, usersJoined) {
       state.username = localStorage.getItem('username')
       state.usersJoined = usersJoined
     },
-    SOCKET_insetAnswers (state, answers) {
+    SOCKET_insertAnswers (state, answers) {
       if (state.answers.length === 4) {
         state.answers = []
       }
@@ -30,6 +31,10 @@ export default new Vuex.Store({
     },
     SOCKET_getWinners (state, data) {
       state.theWinnerIs = data
+      state.hiddenForm = false
+    },
+    hideForm (state, payload) {
+      state.hiddenForm = payload
     }
   },
   actions: {

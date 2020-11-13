@@ -5,7 +5,7 @@
         <div class="card-title"><strong>{{player.username}}</strong></div>
         <div class="card-text">
           <p>Score: {{player.score}}</p> <br />
-          <form @submit.prevent="insertAnswers" :class="hideForm">
+          <form v-if="!hiddenForm" @submit.prevent="insertAnswers" :class="hideForm">
             <div class="form-group">
               <label for="answer">TRY YOUR LUCK</label>
               <input v-model="answer" type="number" id="answer" class="form-control" min="1" max="6" required/>
@@ -34,9 +34,13 @@ export default {
       }
       this.$socket.emit('insertAnswers', payload)
       this.answer = ''
+      this.$store.commit('hideForm', true)
     }
   },
   computed: {
+    hiddenForm () {
+      return this.$store.state.hiddenForm
+    },
     hideForm () {
       const username = localStorage.getItem('username')
       if (username !== this.player.username) {

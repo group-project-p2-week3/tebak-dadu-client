@@ -6,13 +6,20 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  created () {
+    if (!localStorage.username) {
+      this.$router.push({ name: 'Login' })
+    } else {
+      this.$router.push({ name: 'Home' })
+    }
+  }
 }
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Nova Round', cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

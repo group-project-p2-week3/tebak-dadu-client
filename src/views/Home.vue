@@ -1,6 +1,5 @@
 <template>
   <div class="home container">
-    <button @click="logout" class="btn btn-outline-danger">Logout</button>
     <div class="container bg-light shadow" style="height:50vh">
       <div class="row">
         <div class="col-6 text-center" style="margin-top: 2em">
@@ -43,7 +42,7 @@ export default {
   },
   methods: {
     getDice () {
-      if (this.answers.length === this.usersJoined.length) {
+      if (this.answers.length === 4) {
         const number = Math.ceil(Math.random() * 6)
 
         this.dice = number
@@ -53,33 +52,37 @@ export default {
         Swal.fire({
           icon: 'warning',
           title: 'Wait a minute',
-          text: 'All players must submit their answer first'
+          html: '<p>Game can start if there are <b>4 players</b> & all player have <b>submitted their answer</b></p>'
         })
       }
     },
     checkAnswer () {
       const correct = this.answers.filter(el => +el.answer === this.dice)
       this.$socket.emit('addScore', correct)
-      this.theWinnersss()
-    },
-    logout () {
-      const username = localStorage.getItem('username')
-      this.$socket.emit('logout', username)
-      localStorage.clear()
-    },
-    theWinnersss () {
-      if (this.$store.state.theWinnerIs) {
-        console.log(this.$store.state.theWinnerIs)
-        if (this.$store.state.theWinnerIs === localStorage.username) {
+    }
+  },
+  watch: {
+    theWinners () {
+      console.log(this.theWinners)
+      if (this.theWinners.length > 0) {
+        if (this.theWinners.includes(localStorage.username)) {
           Swal.fire({
             icon: 'success',
-            title: 'You are the champs!!!'
+            title: 'You are the winner!!!'
           })
+            .then((res) => {
+              localStorage.clear()
+              this.$router.push({ name: 'Login' })
+            })
         } else {
           Swal.fire({
             icon: 'error',
             title: 'Such a loser!! :((('
           })
+            .then((res) => {
+              localStorage.clear()
+              this.$router.push({ name: 'Login' })
+            })
         }
       }
     }
@@ -104,21 +107,28 @@ export default {
   components: {
     PlayerCard
   },
-  watch: {
-    winner () {
-      if (this.winner === localStorage.username) {
-        Swal.fire({
-          icon: 'success',
-          title: 'You are the champs!!!'
-        })
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Such a loser!! :((('
-        })
-      }
-    }
+  created () {
+    Swal.fire({
+      icon: 'info',
+      title: '<strong>How To Play<strong>',
+      width: '70%',
+      html: `
+      <ul class="text-left border px-5 py-3">
+        <li>Game bisa dimulai jika ada <b>4 orang</b> di dalam game</li>
+        <li>Setelah game dimulai, nanti akan diminta input angka yang dari <b>1 sampai 6</b> dan dadu akan dikocok</li>
+        <li>Angka yang dipilih bisa sama antar pemain</li>
+        <li>Jika angka pada dadu dan jawaban kalian sama, maka score akan bertambah 10</li>
+        <li>Game akan berhenti jika ada player yang mendapatkan <b>score 50</b></li>
+      </ul>
+      `,
+      confirmButtonText: 'OK'
+    })
   }
 }
-
 </script>
+
+<style>
+* {
+  font-family: 'Poppins', sans-serif;
+}
+</style>
