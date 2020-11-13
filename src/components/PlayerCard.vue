@@ -1,10 +1,10 @@
 <template>
-  <div class="card-login col-3">
-    <div class="card rounded shadow card-bordered bg-dark text-light">
+  <div class="col-3">
+    <div class="card rounded shadow card-bordered bg-dark text-light" style="height: 240px">
       <div class="card-body">
-        <div class="card-title"><strong>{{player.username}}</strong></div>
+        <div class="card-title name rainbow"><strong>{{player.username}}</strong></div>
         <div class="card-text">
-          <p>Score: {{player.score}}</p> <br />
+          <p class="score">Score: {{player.score}}</p> <br />
           <form v-if="!hiddenForm" @submit.prevent="insertAnswers" :class="hideForm">
             <div class="form-group">
               <label for="answer">TRY YOUR LUCK</label>

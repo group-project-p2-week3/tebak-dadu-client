@@ -7,7 +7,7 @@
           <img v-show="img" :src="img" alt="#" height="200px"> <br> <br>
           <button @click="getDice" class="btn btn-primary"><i class="fas fa-dice"></i> Shake <i class="fas fa-dice"></i></button>
         </div>
-        <div class="col-6" style="margin-top: 4em">
+        <div class="col-6 answer" style="margin-top: 4em">
           <ul v-for="(answer, i) in answers" :key="i">
             <li>
               {{answer.username}}: {{answer.answer}}
