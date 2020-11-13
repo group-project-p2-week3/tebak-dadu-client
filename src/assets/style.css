@@ -1,0 +1,69 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-weight: 300;
+  font-size: 15px;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+  background-image: url('https://i.pinimg.com/originals/30/7c/bb/307cbb2065e01007ea488bfeeb602731.png');
+  background-attachment: fixed;
+}
+
+.card-login {
+  margin-top: 100px;
+  background-color: #000000;
+  background-image: linear-gradient(147deg, #000000 0%, #2c3e50 74%);
+  box-shadow:  41px 41px 82px purple, -41px -41px 82px blue;
+}
+
+.card-login .card-title {
+  font-weight: 300;
+  font-size: 1.5rem;
+}
+
+.form-login .btn {
+  letter-spacing: .15rem;
+  transition: all 0.2s;
+}
+
+.name {
+  font-size: 25px;
+  font-weight: bolder;
+}
+
+/* Rainbow Text */
+.rainbow {
+  /* Font options */
+ text-shadow: 2px 2px 4px #000000;
+ animation: rainbow 3s infinite;
+}
+
+@keyframes rainbow{
+  0%{color: orange;}	
+  10%{color: purple;}	
+	20%{color: red;}
+  30%{color: CadetBlue;}
+	40%{color: yellow;}
+  50%{color: coral;}
+	60%{color: green;}
+  70%{color: cyan;}
+  80%{color: DeepPink;}
+  90%{color: DodgerBlue;}
+	100%{color: orange;}
+}
+
+.score {
+  font-weight: bolder;
+  font-size: 25px;
+}
+
+.answer li {
+  margin-top: 20px;
+  margin-left: 100px;
+  font-weight: bolder;
+  font-size: 25px;
+}
