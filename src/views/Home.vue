@@ -73,7 +73,8 @@ export default {
         if (this.theWinners.includes(localStorage.username)) {
           Swal.fire({
             icon: 'success',
-            title: 'You are the champs!!!'
+            title: 'You are the champs!!!',
+            text: 'JACKPOTTT $10.000.000.000'
           })
             .then((res) => {
               localStorage.clear()
@@ -82,7 +83,7 @@ export default {
         } else {
           Swal.fire({
             icon: 'error',
-            title: 'Such a loser!! :((('
+            title: 'Such a loser!!! :((('
           })
             .then((res) => {
               localStorage.clear()
